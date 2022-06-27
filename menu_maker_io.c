@@ -10,44 +10,81 @@ int choice;
 struct proteina {
   char nome[20];
   int porcao;
-  int tipo; // tipo = 1 (Op√ß√£o 1), tipo = 2 (Op√ß√£o 2, CONT√âM FRANGO), tipo = 3 (Op√ß√£o
-            // Vegetariana)
+  int tipo; // tipo = 1 (Op√ß√£o 1), tipo = 2 (Op√ß√£o 2, CONT√âM FRANGO), tipo
+            // = 3 (Op√ß√£o Vegetariana)
 };
 
-struct gnc {
-  char guarnicoes[20];
+struct guarnicao {
+  char nome[20];
 };
 
-struct acpnmt {
-  char acompanhamento[20];
+struct salada {
+  char composicao[60];
+  int qunatItens;
 };
 
-struct sbms {
-  char sobremesa[20];
+struct acompanhamento {
+  char nome[20];
+};
+
+struct sobremesa {
+  char nome[20];
 };
 
 struct cardapio {
   struct proteina opcao1[5];
   struct proteina opcao2[5];
   struct proteina vegetariana[5];
-  struct gnc guarnicoes[5];
-  struct acpnmt acompanhamento[5];
-  struct sbms sobremesa[2];
+  struct guarnicao guarnicoes[5];
+  struct acompanhamento acompanhamento[5];
+  struct sobremesa sobremesa[2];
 };
 
 // NESTA PARTE VAO FICAR AS FUNCOES
 
-void addProteina(){
+void addProteina() {
   struct proteina ptn;
-    fptr = fopen("bd_opcoes.txt", "a");
-    printf("NOME DA PROTEINA: ");
-    scanf(" %[^\n]s", ptn.nome);
-    printf("\nQUANTIDADE EM GRAMAS SERVIDA: ");
-    scanf("%d", &ptn.porcao);
-    printf("\nTIPO DE PROTEINA: ");
-    scanf("%d", &ptn.tipo);
-    fprintf(fptr, "\n%s\n%d\n%d", ptn.nome, ptn.porcao, ptn.tipo);
-    fclose(fptr);
+  fptr = fopen("bd_opcoes.txt", "a");
+  printf("NOME DA PROTEINA: ");
+  scanf(" %[^\n]s", ptn.nome);
+  printf("\nQUANTIDADE EM GRAMAS SERVIDA: ");
+  scanf("%d", &ptn.porcao);
+  printf("\nTIPO DE PROTEINA: ");
+  scanf("%d", &ptn.tipo);
+  fprintf(fptr, "\n%s\n%d\n%d", ptn.nome, ptn.porcao, ptn.tipo);
+  fclose(fptr);
+}
+
+void addSalada() { 
+  struct salada sld;
+  fptr = fopen("bd_salada.txt", "a");
+  printf("COMPOSIÄ«O DA SALADA: ");
+  scanf(" %[^\n]s", sld.composicao);
+  printf("\nQUANTIDADE DE ITENS QUE COMPÂEM A SALADA: ");
+  scanf(" %d", &sld.qunatItens);
+  fprintf(fptr, "\n%s\n%d", sld.composicao, sld.qunatItens);
+  fclose(fptr);
+}
+
+void addGuarnicao(){
+  struct guarnicao gnc;
+  fptr = fopen("bd_gncs.txt", "a");
+  printf("COMPOSIÄ«O DA GUARNIÄ«O: ", "a");
+  scanf(" %[^\n]s", gnc.nome);
+  fprintf(fptr, "\n%s", gnc.nome);
+  fclose(fptr);
+}
+
+void addAcompanhamento(){
+  struct acompanhamento acpmt;
+  fptr = fopen("bd_acpmt.txt", "a");
+
+}
+
+void addSobremesa(){
+  struct sobremesa sbms;
+  fptr = fopen("bd_sbms.txt", "a");
+
 }
 // funcao para adicionar opcoes de cardapio: proteina, vegetariana,
 // acompanhamento, sobremesa.
@@ -67,16 +104,16 @@ void addOpcao() {
     addProteina();
     break;
   case 2: // Adiconar salada.
-    // c¢digo aqui.
+    addSalada();
     break;
   case 3: // Adiconar guarniá∆o.
-    // c¢digo aqui.
+    addGuarnicao();
     break;
   case 4: // Adiconar acompanhamento.
-    // c¢digo aqui.
+    addAcompanhamento();
     break;
   case 5: // Adiconar sobremesa.
-    // c¢digo aqui.
+    addSobremesa();
     break;
   case 6: // Voltando ao menu anterior.
     printf("Voltando");
