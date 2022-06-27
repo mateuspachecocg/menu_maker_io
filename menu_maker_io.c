@@ -25,10 +25,12 @@ struct salada {
 
 struct acompanhamento {
   char nome[20];
+  int tipo; // tipo = 1 (Arroz), tipo = 2 (Feij∆o)
 };
 
 struct sobremesa {
   char nome[20];
+  int tipo; // tipo = 1 (Fruta); tipo = 2 (Doce);
 };
 
 struct cardapio {
@@ -69,7 +71,7 @@ void addSalada() {
 void addGuarnicao(){
   struct guarnicao gnc;
   fptr = fopen("bd_gncs.txt", "a");
-  printf("COMPOSIÄ«O DA GUARNIÄ«O: ", "a");
+  printf("COMPOSIÄ«O DA GUARNIÄ«O: ");
   scanf(" %[^\n]s", gnc.nome);
   fprintf(fptr, "\n%s", gnc.nome);
   fclose(fptr);
@@ -78,13 +80,23 @@ void addGuarnicao(){
 void addAcompanhamento(){
   struct acompanhamento acpmt;
   fptr = fopen("bd_acpmt.txt", "a");
-
+  printf("COMPOSIÄ«O DA GUARNIÄ«O: ");
+  scanf(" %[^\n]s", acpmt.nome);
+  printf("TIPO DE GUARNIÄ«O (1 - ARROZ; 2 - FEIJAO): ");
+  scanf(" %d", &acpmt.tipo);
+  fprintf(fptr,"\n%s\n%d", acpmt.nome, acpmt.tipo);
+  fclose(fptr);
 }
 
 void addSobremesa(){
   struct sobremesa sbms;
   fptr = fopen("bd_sbms.txt", "a");
-
+  printf("COMPOSIÄ«O SOBREMESA: ");
+  scanf(" %[^\n]s", sbms.nome);
+  printf("TIPO DE SOBREMESA (1 - FRUTA; 2 - DOCE): ");
+  scanf("%d", &sbms.tipo);
+  fprintf(fptr,"\n%s\n%d", sbms.nome, sbms.tipo);
+  fclose(fptr);
 }
 // funcao para adicionar opcoes de cardapio: proteina, vegetariana,
 // acompanhamento, sobremesa.
