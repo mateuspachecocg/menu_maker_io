@@ -42,6 +42,7 @@ struct cardapio {
   struct proteina opcao1[5];
   struct proteina opcao2[5];
   struct proteina vegetariana[5];
+  struct salada salada[5];
   struct guarnicao guarnicoes[5];
   struct acompanhamento acompanhamento[5];
   struct sobremesa sobremesa[5];
@@ -53,13 +54,15 @@ struct guarnicao      vetor_guarnicao[25];
 struct salada         vetor_salada[25];
 struct acompanhamento vetor_acompanhamento[25];
 struct sobremesa      vetor_sobremesa[25];
+struct cardapio       vetor_cardapios[42];    
 FILE *fptr; // Ponteiro para controlar arquivos
 int choice,   
     count_ptn   = 0,  // Quantidade de op‡äes de proteina dispon¡veis.
     count_gnc   = 0,  // Quantidade de op‡äes de guarni‡äes dispon¡veis.
     count_sld   = 0,  // Quantidade de op‡äes de salada dispon¡veis.
     count_acpmt = 0,  // Quantidade de op‡äes de acompanhamento dispon¡veis.
-    count_sbms  = 0;  // Quantidade de op‡oes de sobremesa dispon¡veis. 
+    count_sbms  = 0,  // Quantidade de op‡oes de sobremesa dispon¡veis. 
+    count_cdpo  = 0;  // Quantidade de card pios armazenados no sistema.
 
 int escreverArquivo(int tipo){
   int i;
@@ -130,6 +133,18 @@ int escreverArquivo(int tipo){
       fprintf(fptr, "%d\n", vetor_sobremesa[i].tipo);
     }
     break;
+  
+  case 6: // escrever arquivo bd_cardapios.txt
+    fptr = fopen("bd_cardapios.txt", "w");
+    if (fptr == NULL) {
+      return - 1;
+    }
+    fprintf(fptr, "%d\n", count_cdpo);
+    for (i = 0; i < count_cdpo; i++){
+      vetor_cardapios[i].semana = i + 1;
+      // gravar cdpo no arquivo
+    }
+    break; 
   }
   fclose(fptr);
   return 0;
@@ -210,9 +225,12 @@ int lerArquivos(int tipo){
     }
     return count_sbms;
     break;
+  
+  
+  case 6: // ler arquivo bd_cardapios
+    break;
   }
 }
-
 
 // NESTA PARTE VAO FICAR AS FUNCOES
 // M¢dulos para a fun‡Æo addProteina()
@@ -274,9 +292,8 @@ void addSobremesa() {
   escreverArquivo(5);
 }
 
-// Fun‡Æo  para adicionar opcoes de cardapio: proteina, vegetariana,
-// acompanhamento, sobremesa.
-void addOpcao() {
+
+void addOpcao() { // Fun‡Æo  para adicionar opcoes de cardapio
   system("cls");
   // Menu do addOpcao()
   printf("\n\n PRESSIONE: ");
@@ -312,13 +329,15 @@ void addOpcao() {
   }
 }
 
-// Fun‡Æo  para editar alguma op‡Æo.
-void editOpcao() {}
 
-// Fun‡Æo  para deletar alguma op‡äes
-void deleteOpcao() {}
+void editOpcao() { // Fun‡Æo  para editar alguma op‡Æo.
+  
+}
 
-// Fun‡Æo para mostrar op‡äes dispon¡veis para montar card pio.
+void deleteOpcao() { // Fun‡Æo  para deletar alguma op‡äes
+
+}
+
 // M¢dulo para a fun‡Æo displayOpcoesDisp()
 void displayProteina() {
   int i;
@@ -412,9 +431,10 @@ void displaySobremesa() {
   }
   printf("\n");
   system("PAUSE");
+
 }
 
-void displayOpcoesDisp() {
+void displayOpcoesDisp() { // Fun‡Æo para mostrar op‡äes dispon¡veis para montar card pio.
   system("cls");
   // Menu do displayOpcoesDisp()
   printf("\n\n PRESSIONE: ");
@@ -450,11 +470,71 @@ void displayOpcoesDisp() {
   }
 }
 
-// funcao para mostrar o cardapio
-void showCardapio() {}
+void showCardapio(int id) { // funcao para mostrar o cardapio
+    struct cardapio cdpo = vetor_cardapios[id];
+    printf("|----------------------------------------------------------------------------------------------------------------------------|\n");
+    printf("|                                                  CARDAPIO DA SEMANA %d                                                      |\n",
+            cdpo.semana);
+    printf("|----------------------------------------------------------------------------------------------------------------------------|\n");
+    printf("|      ALMO€O      |       SEGUNDA       |        TER€A        |       QUARTA       |       QUINTA       |       SEXTA       |\n");
+    printf("|------------------|---------------------|---------------------|--------------------|--------------------|-------------------|\n");
+    printf("|      OP€ÇO 1     |%-19s|%-19s|%-19s|%-20s|%-19s|\n",
+            cdpo.opcao1[0].nome, 
+            cdpo.opcao1[1].nome, 
+            cdpo.opcao1[2].nome, 
+            cdpo.opcao1[3].nome, 
+            cdpo.opcao1[4].nome);
+    printf("|------------------|---------------------|---------------------|--------------------|--------------------|-------------------|\n");
+    printf("|      OP€ÇO 2     |%-19s|%-19s|%-19s|%-20s|%-19s|\n",
+            cdpo.opcao2[0].nome, 
+            cdpo.opcao2[1].nome, 
+            cdpo.opcao2[2].nome, 
+            cdpo.opcao2[3].nome, 
+            cdpo.opcao2[4].nome);
+    printf("|------------------|---------------------|---------------------|--------------------|--------------------|-------------------|\n");
+    printf("|    VEGETARIANA   |%-19s|%-19s|%-19s|%-20s|%-19s|\n",
+            cdpo.vegetariana[0].nome, 
+            cdpo.vegetariana[1].nome, 
+            cdpo.vegetariana[2].nome, 
+            cdpo.vegetariana[3].nome, 
+            cdpo.vegetariana[4].nome);
+    printf("|------------------|---------------------|---------------------|--------------------|--------------------|-------------------|\n");
+    printf("|      SALADA      |%-19s|%-19s|%-19s|%-20s|%-19s|\n",
+            cdpo.salada[0].composicao, 
+            cdpo.salada[1].composicao, 
+            cdpo.salada[2].composicao, 
+            cdpo.salada[3].composicao, 
+            cdpo.salada[4].composicao);
+    printf("|------------------|---------------------|---------------------|--------------------|--------------------|-------------------|\n");
+    printf("|  ACOMPANHAMENTO  |%-19s|%-19s|%-19s|%-20s|%-19s|\n",
+            cdpo.acompanhamento[0].composicao, 
+            cdpo.acompanhamento[1].composicao,
+            cdpo.acompanhamento[2].composicao, 
+            cdpo.acompanhamento[3].composicao,
+            cdpo.acompanhamento[4].composicao);
+    printf("|------------------|---------------------|---------------------|--------------------|--------------------|-------------------|\n");
+    printf("|     SOBREMESA    |%-19s|%-19s|%-19s|%-20s|%-19s|\n",
+            cdpo.sobremesa[0].composicao,
+            cdpo.sobremesa[1].composicao,
+            cdpo.sobremesa[2].composicao,
+            cdpo.sobremesa[3].composicao,
+            cdpo.sobremesa[4].composicao);
+    printf("|------------------|---------------------|---------------------|--------------------|--------------------|-------------------|\n");
+}
 
-// funcao para fazer o card pio
-void makeCardapio() {}
+void makeCardapio() { // funcao para fazer o card pio
+  int i;
+  // Gerando OP€¶O 1 de Prote¡na
+
+  // Gerando OP€¶O 2 de Prote¡na
+
+  // Gerando OP€ÇO vegetariana.
+
+  // Gerando OP€ÇO de salada
+
+  // Gerando 
+
+}
 
 int main(void) {
   // Definindo variaveis e constantes
@@ -465,6 +545,7 @@ int main(void) {
   count_sld   = lerArquivos(3);
   count_acpmt = lerArquivos(4);
   count_sbms  = lerArquivos(5);
+  count_cdpo  = lerArquivos(6);
 
   do { //Menu Inicial do Programa
     system("cls");
@@ -497,7 +578,7 @@ int main(void) {
       displayOpcoesDisp();
       break;
     case 5: // MOSTRAR O CARDAPIO DA SEMANA
-      showCardapio();
+      showCardapio(1);
       break;
     case 6: // CRIAR O CARDAPIO.
       makeCardapio();
