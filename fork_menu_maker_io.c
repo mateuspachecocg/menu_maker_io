@@ -206,13 +206,14 @@ int lerArquivos(int tipo){
       fscanf(fptr, " %d", &vetor_sobremesa[i].tipo); 
     }
     break;
-  return 1; 
   }
+  return 1; 
 }
 
 
 // NESTA PARTE VAO FICAR AS FUNCOES
 // M¢dulos para a funá∆o addProteina()
+
 void addProteina() {
   struct proteina ptn;
   printf("NOME DA PROTEINA: ");
@@ -221,20 +222,10 @@ void addProteina() {
   scanf("%d", &ptn.porcao);
   printf("\nTIPO DE PROTEINA: ");
   scanf("%d", &ptn.tipo);
+  ptn.id = count_ptn + 1;
   vetor_proteinas[count_ptn] = ptn;
   count_ptn++;
   escreverArquivo(1);
-}
-
-void addSalada() {
-  struct salada sld;
-  fptr = fopen("bd_salada.txt", "a");
-  printf("COMPOSIÄ«O DA SALADA: ");
-  scanf(" %[^\n]s", sld.composicao);
-  printf("\nQUANTIDADE DE ITENS QUE COMPÂEM A SALADA: ");
-  scanf(" %d", &sld.quantItens);
-  fprintf(fptr, "\n%s\n%d", sld.composicao, sld.quantItens);
-  fclose(fptr);
 }
 
 void addGuarnicao() {
@@ -242,31 +233,49 @@ void addGuarnicao() {
   fptr = fopen("bd_gncs.txt", "a");
   printf("COMPOSIÄ«O DA GUARNIÄ«O: ");
   scanf(" %[^\n]s", gnc.nome);
-  fprintf(fptr, "\n%s", gnc.nome);
-  fclose(fptr);
+  gnc.id = count_gnc + 1;
+  vetor_guarnicao[count_gnc] = gnc;
+  count_gnc++;
+  escreverArquivo(2);
+}
+
+
+void addSalada() {
+  struct salada sld;
+  printf("COMPOSIÄ«O DA SALADA: ");
+  scanf(" %[^\n]s", sld.composicao);
+  printf("\nQUANTIDADE DE ITENS QUE COMPÂEM A SALADA: ");
+  scanf(" %d", &sld.quantItens);
+  sld.id = count_sld;
+  vetor_salada[count_sld] = sld;
+  count_sld;
+  escreverArquivo(3);
 }
 
 void addAcompanhamento() {
   struct acompanhamento acpmt;
-  fptr = fopen("bd_acpmt.txt", "a");
   printf("COMPOSIÄ«O DA GUARNIÄ«O: ");
   scanf(" %[^\n]s", acpmt.composicao);
   printf("TIPO DE GUARNIÄ«O (1 - ARROZ; 2 - FEIJAO): ");
   scanf(" %d", &acpmt.tipo);
-  fprintf(fptr, "%s\n%d\n", acpmt.composicao, acpmt.tipo);
-  fclose(fptr);
+  acpmt.id = count_acpmt + 1;
+  vetor_acompanhamento[count_acpmt] = acpmt;
+  count_acpmt++;
+  escreverArquivo(4);
 }
 
 void addSobremesa() {
   struct sobremesa sbms;
-  fptr = fopen("bd_sbms.txt", "a");
   printf("COMPOSIÄ«O SOBREMESA: ");
   scanf(" %[^\n]s", sbms.composicao);
   printf("TIPO DE SOBREMESA (1 - FRUTA; 2 - DOCE): ");
   scanf("%d", &sbms.tipo);
-  fprintf(fptr, "%s\n%d\n", sbms.composicao, sbms.tipo);
-  fclose(fptr);
+  sbms.id = count_sbms + 1;
+  vetor_sobremesa[count_sbms] = sbms;
+  count_sbms++;
+  escreverArquivo(5);
 }
+
 // Funá∆o  para adicionar opcoes de cardapio: proteina, vegetariana,
 // acompanhamento, sobremesa.
 void addOpcao() {
