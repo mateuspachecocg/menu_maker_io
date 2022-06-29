@@ -335,6 +335,7 @@ void displayProteina() {
     vetor_proteinas[i].nome,
     vetor_proteinas[i].porcao, 
     vetor_proteinas[i].tipo);
+    printf("|-----|----------------------------|------------------------------|------------|\n");
   }
   printf("\n");
   system("PAUSE");
@@ -351,78 +352,64 @@ void displayGuarnicao() {
     printf("| %-4d|   %-20s|\n", 
             vetor_guarnicao[i].id,
             vetor_guarnicao[i].nome);
+    printf("|-----|-----------------------|\n");
   }
   printf("\n");
   system("PAUSE");
 }
 
 void displaySalada() {
-  fptr = fopen("bd_salada.txt", "r");
-  struct salada sld;
-  if (fptr == NULL) {
-    printf("Erro to open the bd_salada.txt");
-    exit(1);
-  }
+  int i;
   // Header
-  printf("|                           OP€åES DE SALADA                             |\n");
-  printf("|------------------------------------------------------------------------|\n");
-  printf("|                  COMOPOSI€ÇO                     | QUANTIDADE DE ITENS |\n");
-  printf("|--------------------------------------------------|---------------------|\n");
+  printf("|                               OP€åES DE SALADA                               |\n");
+  printf("|------------------------------------------------------------------------------|\n");
+  printf("| ID  |                  COMOPOSI€ÇO                     | QUANTIDADE DE ITENS |\n");
+  printf("|-----|--------------------------------------------------|---------------------|\n");
+  for (i = 0; i < count_sld; i++){
+    printf("| %-4d|   %-40s       |         %d           |\n", 
+            vetor_salada[i].id,
+            vetor_salada[i].composicao, 
+            vetor_salada[i].quantItens);
+    printf("|-----|--------------------------------------------------|---------------------|\n");
 
-  do {
-    fgets(sld.composicao, 60, fptr);
-    sld.composicao[strlen(sld.composicao) - 1] = 0; // Removendo \n
-    fscanf(fptr, "  %d\n", &sld.quantItens);
-
-  printf("|   %-40s       |         %d           |\n", 
-    sld.composicao, sld.quantItens);
-  } while (!feof(fptr));
+  }
   printf("\n");
   system("PAUSE");
 }
 
 void displayAcompanhamento() {
-  fptr = fopen("bd_acpmt.txt", "r");
-  struct acompanhamento acpmt;
-  if (fptr == NULL) {
-    printf("Erro to open the bd_acpmt.txt");
-    exit(1);
-  }
+  int i;
   // Header
-  printf("|                           OP€åES DE ACOMPANHAMENTO                     |\n");
-  printf("|------------------------------------------------------------------------|\n");
-  printf("|                  COMOPOSI€ÇO                     |         TIPO        |\n");
-  printf("|--------------------------------------------------|---------------------|\n");
+  printf("|                             OP€åES DE ACOMPANHAMENTO                         |\n");
+  printf("|------------------------------------------------------------------------------|\n");
+  printf("| ID  |                  COMOPOSI€ÇO                     |         TIPO        |\n");
+  printf("|-----|--------------------------------------------------|---------------------|\n");
+  for (i = 0; i < count_acpmt; i++){
+    printf("| %-4d|   %-40s       |         %d           |\n", 
+          vetor_acompanhamento[i].id,
+          vetor_acompanhamento[i].composicao,
+          vetor_acompanhamento[i].tipo);
+    printf("|-----|--------------------------------------------------|---------------------|\n");
 
-  do {
-    fgets(acpmt.composicao, 60, fptr);
-    acpmt.composicao[strlen(acpmt.composicao) - 1] = 0; // Removendo \n
-    fscanf(fptr, "  %d\n", &acpmt.tipo);
-    printf("|   %-40s       |         %d           |\n", acpmt.composicao, acpmt.tipo);
-  } while (!feof(fptr));
+  }
   printf("\n");
   system("PAUSE");
 }
 
 void displaySobremesa() {
-  fptr = fopen("bd_sbms.txt", "r");
-  struct sobremesa sbms;
-  if (fptr == NULL) {
-    printf("Erro to open the bd_sbms.txt");
-    exit(1);
-  }
+  int i;
   // Header
-  printf("|                          OP€åES DE SOBREMESA                           |\n");
-  printf("|------------------------------------------------------------------------|\n");
-  printf("|                  COMOPOSI€ÇO                     |         TIPO        |\n");
-  printf("|--------------------------------------------------|---------------------|\n");
-
-  do {
-    fgets(sbms.composicao, 20, fptr);
-    sbms.composicao[strlen(sbms.composicao) - 1] = 0; // Removendo \n
-    fscanf(fptr, "  %d\n", &sbms.tipo);
-    printf("|   %-40s       |         %d           |\n", sbms.composicao, sbms.tipo);
-  } while (!feof(fptr));
+  printf("|                                OP€åES DE SOBREMESA                           |\n");
+  printf("|------------------------------------------------------------------------------|\n");
+  printf("| ID  |                  COMOPOSI€ÇO                     |         TIPO        |\n");
+  printf("|-----|--------------------------------------------------|---------------------|\n");
+  for (i = 0; i < count_sbms; i++){
+    printf("| %-4d|   %-40s       |         %d           |\n", 
+            vetor_sobremesa[i].id,
+            vetor_sobremesa[i].composicao,
+            vetor_sobremesa[i].tipo);
+    printf("|-----|--------------------------------------------------|---------------------|\n");
+  }
   printf("\n");
   system("PAUSE");
 }
