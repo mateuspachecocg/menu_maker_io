@@ -166,6 +166,7 @@ int lerArquivos(int tipo){
       fgets(vetor_guarnicao[i].nome, 50, fptr);
       vetor_guarnicao[i].nome[strlen(vetor_guarnicao[i].nome) - 1] = 0; // Removendo \n
     }
+    return count_gnc;
     break;
   case 3: // ler arquivo bd_salada.txt
     fptr = fopen("bd_salada.txt", "r");
@@ -179,6 +180,7 @@ int lerArquivos(int tipo){
       vetor_salada[i].composicao[strlen(vetor_salada[i].composicao) - 1] = 0; // Removendo \n
       fscanf(fptr, " %d", &vetor_salada[i].quantItens);
     }
+    return count_sld;
     break;
   case 4: // ler arquivo bd_acpmt.txt
     fptr = fopen("bd_acpmt.txt", "r");
@@ -192,6 +194,7 @@ int lerArquivos(int tipo){
       vetor_acompanhamento[i].composicao[strlen(vetor_acompanhamento[i].composicao) - 1] = 0; // Removendo \n
       fscanf(fptr, " %d", &vetor_acompanhamento[i].tipo);
     }
+    return count_acpmt;
     break;
   case 5: // ler arquivo bd_sbms.txt
     fptr = fopen("bd_smbs.txt", "r");
@@ -205,9 +208,9 @@ int lerArquivos(int tipo){
       vetor_sobremesa[i].composicao[strlen(vetor_sobremesa[i].composicao) - 1] = 0; // Removendo \n
       fscanf(fptr, " %d", &vetor_sobremesa[i].tipo); 
     }
+    return count_sbms;
     break;
   }
-  return 1; 
 }
 
 
@@ -338,23 +341,17 @@ void displayProteina() {
 } 
 
 void displayGuarnicao() {
-  fptr = fopen("bd_gncs.txt", "r");
-  struct guarnicao gnc;
-  if (fptr == NULL) {
-    printf("Erro to open the bd_salada.txt");
-    exit(1);
-  }
+  int i;
    // Header
-  printf("|  OP€åES DE GUARNI€åES |\n");
-  printf("|-----------------------|\n");
-  printf("|        NOME           |\n");
-  printf("|-----------------------|\n");
-  do {
-    fgets(gnc.nome, 20, fptr);
-    gnc.nome[strlen(gnc.nome) - 1] = 0; // Removendo \n
-    printf("|   %-20s|\n", 
-    gnc.nome);
-  } while (!feof(fptr));
+  printf("|     OP€åES DE GUARNI€åES    |\n");
+  printf("|-----------------------------|\n");
+  printf("| ID  |        NOME           |\n");
+  printf("|-----|-----------------------|\n");
+  for (i = 0; i  < count_gnc; i++){
+    printf("| %-4d|   %-20s|\n", 
+            vetor_guarnicao[i].id,
+            vetor_guarnicao[i].nome);
+  }
   printf("\n");
   system("PAUSE");
 }
@@ -475,7 +472,12 @@ void makeCardapio() {}
 int main(void) {
   // Definindo variaveis e constantes
   int i;
-  count_ptn = lerArquivos(1);
+  // Lendo arquivos com dados armazenados.
+  count_ptn   = lerArquivos(1);
+  count_gnc   = lerArquivos(2);
+  count_sld   = lerArquivos(3);
+  count_acpmt = lerArquivos(4);
+  count_sbms  = lerArquivos(5);
 
   do { //Menu Inicial do Programa
     system("cls");
