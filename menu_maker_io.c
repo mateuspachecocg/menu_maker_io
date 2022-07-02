@@ -156,7 +156,7 @@ int lerArquivos(int tipo){
   case 1: // ler arquivo bd_proteinas.txt
     fptr = fopen("bd_proteinas.txt", "r");
     if (fptr == NULL) {
-      return - 1;
+      return 0;
     }
     fscanf(fptr, "%d\n", &count_ptn);
     for(i =0; i < count_ptn; i++)
@@ -173,7 +173,7 @@ int lerArquivos(int tipo){
   case 2: // ler arquivo bd_gncs.txt
     fptr = fopen("bd_gncs.txt", "r");
     if (fptr == NULL) {
-      return - 1;
+      return 0;
     }
     fscanf(fptr, "%d\n", &count_gnc);
     for (i = 0; i < count_gnc; i++){
@@ -186,7 +186,7 @@ int lerArquivos(int tipo){
   case 3: // ler arquivo bd_salada.txt
     fptr = fopen("bd_salada.txt", "r");
     if (fptr == NULL) {
-      return - 1;
+      return 0;
     }
     fscanf(fptr, "%d\n", &count_sld);
     for(i =0; i < count_sld; i++){
@@ -200,7 +200,7 @@ int lerArquivos(int tipo){
   case 4: // ler arquivo bd_acpmt.txt
     fptr = fopen("bd_acpmt.txt", "r");
     if (fptr == NULL) {
-      return - 1;
+      return 0;
     }
     fscanf(fptr, "%d\n", &count_acpmt);
     for (i = 0; i < count_acpmt; i++){
@@ -214,7 +214,7 @@ int lerArquivos(int tipo){
   case 5: // ler arquivo bd_sbms.txt
     fptr = fopen("bd_smbs.txt", "r");
     if (fptr == NULL) {
-      return - 1;
+      return 0;
     }
     fscanf(fptr, "%d\n", &count_sbms);
     for(i =0; i < count_sbms; i++){
